@@ -14,7 +14,8 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        //
+        $equipos=Equipo::all();
+        echo  json_encode ($equipos);
     }
 
     /**
@@ -35,7 +36,22 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $equipo=new Equipo();
+        $equipo->nombre=$request->input('nombre');
+        $equipo->categoria=$request->input('categoria');
+
+        if($request->hasFile('imagen')){
+          $file=$request->file('imagen');
+          $path=public_path().'/images/equipos';
+          $fileName=uniqid().'-'.$file->getClientOriginalName();
+          $moved=$file->move($path,$fileName);
+
+
+          if($moved){
+            $equipo->imagen=$fileName;
+            $equipo->save();//insert en la bd
+          }
+        }
     }
 
     /**
