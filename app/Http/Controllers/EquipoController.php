@@ -39,20 +39,18 @@ class EquipoController extends Controller
         $equipo=new Equipo();
         $equipo->nombre=$request->input('nombre');
         $equipo->categoria=$request->input('categoria');
+        //$equipo->save();
 
-        if($request->hasFile('imagen')){
           $file=$request->file('imagen');
           $path=public_path().'/images/equipos';
           $fileName=uniqid().'-'.$file->getClientOriginalName();
           $moved=$file->move($path,$fileName);
-
-
           if($moved){
             $equipo->imagen=$fileName;
             $equipo->save();//insert en la bd
             echo json_encode($equipo);
           }
-        }
+
     }
 
     /**
