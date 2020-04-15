@@ -50,6 +50,7 @@ class EquipoController extends Controller
           if($moved){
             $equipo->imagen=$fileName;
             $equipo->save();//insert en la bd
+            echo json_encode($equipo);
           }
         }
     }
@@ -60,22 +61,11 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function show(Equipo $equipo)
+    public function show($id)
     {
-        //
+      $equipo=Equipo::find($id);
+      echo json_encode($equipo);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Equipo $equipo)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -83,9 +73,24 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Equipo $equipo)
+    public function update(Request $request,$id)
     {
-        //
+        $equipo=Equipo::find($id);
+        $equipo->nombre=$request->input('nombre');
+        $equipo->categoria=$request->input('categoria');
+        if($request->hasFile('imagen')){
+          $file=$request->file('imagen');
+          $path=public_path().'/images/equipos';
+          $fileName=uniqid().'-'.$file->getClientOriginalName();
+          $moved=$file->move($path,$fileName);
+
+          if($moved){
+            $equipo->imagen=$fileName;
+            $equipo->save();
+            echo json_encode($equipo);
+          }
+        }
+
     }
 
     /**
@@ -94,8 +99,11 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Equipo $equipo)
+    public function destroy($id)
     {
-        //
+      $equipo=Equipo::find($id);
+      $equipo->delete();
+      echo json_encode($equipo);
+
     }
 }
