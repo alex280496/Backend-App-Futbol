@@ -39,18 +39,23 @@ class EquipoController extends Controller
         $equipo=new Equipo();
         $equipo->nombre=$request->input('nombre');
         $equipo->categoria=$request->input('categoria');
-        //$equipo->save();
+        $equipo->save();
+        echo json_encode($equipo);
 
-          $file=$request->file('imagen');
-          $path=public_path().'/images/equipos';
-          $fileName=uniqid().'-'.$file->getClientOriginalName();
-          $moved=$file->move($path,$fileName);
-          if($moved){
-            $equipo->imagen=$fileName;
-            $equipo->save();//insert en la bd
-            echo json_encode($equipo);
-          }
 
+    }
+    public function guardarimagen(Request $request){
+      $equipo=Equipo::all();
+      $ultimo=($equipo->last());
+
+      $file=$request->file('imagen');
+      $path=public_path().'/images/equipos';
+      $fileName=uniqid().'-'.$file->getClientOriginalName();
+      $moved=$file->move($path,$fileName);
+      if($moved){
+        $ultimo->imagen=$fileName;
+        $ultimo->save();//insert en la bd
+      }
     }
 
     /**
