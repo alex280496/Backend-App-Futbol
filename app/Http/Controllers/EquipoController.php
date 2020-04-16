@@ -23,17 +23,7 @@ class EquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $equipo=new Equipo();
@@ -45,9 +35,9 @@ class EquipoController extends Controller
 
     }
     public function guardarimagen(Request $request){
-      $equipo=Equipo::all();
+      $equipo=Equipo::orderBy('id')->get();
       $ultimo=($equipo->last());
-
+      //dd($ultimo);
       $file=$request->file('imagen');
       $path=public_path().'/images/equipos';
       $fileName=uniqid().'-'.$file->getClientOriginalName();
