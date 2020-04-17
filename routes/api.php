@@ -18,4 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::resource('equipos','EquipoController');
 Route::resource('images','ImagenController');
-Route::post('guardarimagen','EquipoController@guardarimagen');
+Route::post('guardarimagen/{id}','EquipoController@guardarimagen');
+Route::post('guardarimagenupdate/{id}','EquipoController@guardarimagenupdate');

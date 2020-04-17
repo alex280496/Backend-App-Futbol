@@ -14,7 +14,7 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        $equipos=Equipo::all();
+        $equipos=Equipo::orderBy('id')->get();
         echo  json_encode ($equipos);
     }
 
@@ -31,20 +31,17 @@ class EquipoController extends Controller
         $equipo->categoria=$request->input('categoria');
         $equipo->save();
         echo json_encode($equipo);
-
-
     }
-    public function guardarimagen(Request $request){
-      $equipo=Equipo::orderBy('id')->get();
-      $ultimo=($equipo->last());
-      //dd($ultimo);
+    public function guardarimagen(Request $request,$id){
+
+      $equipo=Equipo::find($id);
       $file=$request->file('imagen');
       $path=public_path().'/images/equipos';
       $fileName=uniqid().'-'.$file->getClientOriginalName();
       $moved=$file->move($path,$fileName);
       if($moved){
-        $ultimo->imagen=$fileName;
-        $ultimo->save();//insert en la bd
+        $equipo->imagen=$fileName;
+        $equipo->save();//insert en la bd
       }
     }
 
@@ -71,19 +68,20 @@ class EquipoController extends Controller
         $equipo=Equipo::find($id);
         $equipo->nombre=$request->input('nombre');
         $equipo->categoria=$request->input('categoria');
-        if($request->hasFile('imagen')){
-          $file=$request->file('imagen');
-          $path=public_path().'/images/equipos';
-          $fileName=uniqid().'-'.$file->getClientOriginalName();
-          $moved=$file->move($path,$fileName);
+        $equipo->save();
+    }
+    public function guardarimagenupdate(Request $request,$id){
 
-          if($moved){
-            $equipo->imagen=$fileName;
-            $equipo->save();
-            echo json_encode($equipo);
-          }
-        }
-
+      $equipo=Equipo::find($id);
+      //dd($ultimo);
+      $file=$request->file('imagen');
+      $path=public_path().'/images/equipos';
+      $fileName=uniqid().'-'.$file->getClientOriginalName();
+      $moved=$file->move($path,$fileName);
+      if($moved){
+        $equipo->imagen=$fileName;
+        $equipo->save();//insert en la bd
+      }
     }
 
     /**
@@ -97,6 +95,5 @@ class EquipoController extends Controller
       $equipo=Equipo::find($id);
       $equipo->delete();
       echo json_encode($equipo);
-
     }
 }
