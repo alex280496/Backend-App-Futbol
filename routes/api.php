@@ -20,3 +20,4 @@ Route::resource('equipos','EquipoController');
 Route::resource('images','ImagenController');
 Route::post('guardarimagen/{id}','EquipoController@guardarimagen');
 Route::post('guardarimagenupdate/{id}','EquipoController@guardarimagenupdate');
+Route::resource('jugadores','JugadorController');

@@ -14,7 +14,8 @@ class JugadorController extends Controller
      */
     public function index()
     {
-        //
+        $jugadores=Jugador::all();
+        return json_encode($jugadores);
     }
 
     /**
@@ -35,7 +36,26 @@ class JugadorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jugador=new Jugador();
+        $jugador->cedula=$request->input('cedula');
+        $jugador->nombre=$request->input('nombre');
+        $jugador->apellido=$request->input('apellido');
+        $jugador->telefono=$request->input('telefono');
+        $jugador->posicion_juego=$request->input('posicion_juego');
+        $jugador->numero=$request->input('numero');
+        $jugador->fecha_nacimiento=$request->input('fecha_nacimiento');
+        if($request->hasfile('imagen')){
+          $file=$request->file('imagen');
+          $path=public_path().'/images/jugadores';
+          $fileName=uniqid().'-'.$file->getClientOriginalName();
+          $moved=$file->move($path,$fileName);
+          if($moved){
+            $jugador->imagen=$fileName;
+            $jugador->save();//insert en la bd
+            return json_encode($jugador);
+          }
+        }
+
     }
 
     /**
@@ -44,9 +64,10 @@ class JugadorController extends Controller
      * @param  \App\Jugador  $jugador
      * @return \Illuminate\Http\Response
      */
-    public function show(Jugador $jugador)
+    public function show($id)
     {
-        //
+        $jugador=Jugador::find($id);
+         return json_encode($jugador);
     }
 
     /**
@@ -55,21 +76,29 @@ class JugadorController extends Controller
      * @param  \App\Jugador  $jugador
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jugador $jugador)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jugador  $jugador
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Jugador $jugador)
+    public function update(Request $request,$id)
     {
-        //
+        $jugador=Jugador::find($id);
+        $jugador->cedula=$request->input('cedula');
+        $jugador->nombre=$request->input('nombre');
+        $jugador->apellido=$request->input('apellido');
+        $jugador->telefono=$request->input('apellido');
+        $jugador->posicion_juego=$request->input('posicion_juego');
+        $jugador->numero=$request->input('numero');
+        $jugador->fecha_nacimiento=$request->input('fecha_nacimiento');
+        if($request->hasfile('imagen')){
+          $file=$request->file('imagen');
+          $path=public_path().'/images/jugadores';
+          $fileName=uniqid().'-'.$file->getClientOriginalName();
+          $moved=$file->move($path,$fileName);
+          if($moved){
+            $jugador->imagen=$fileName;
+            $jugador->save();//insert en la bd
+            return  json_encode($jugador);
+          }
+        }
+
     }
 
     /**
@@ -78,8 +107,10 @@ class JugadorController extends Controller
      * @param  \App\Jugador  $jugador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jugador $jugador)
+    public function destroy($id)
     {
-        //
+        $jugador=Jugador::find($id);
+        $jugador->delete();
+        return json_encode($jugador);
     }
 }

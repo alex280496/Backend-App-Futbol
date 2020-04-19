@@ -20,10 +20,11 @@ class CreateJugadorsTable extends Migration
             $table->string('apellido');
             $table->string('telefono');
             $table->string('posicion_juego');
-            $table->string('numero');
+            $table->integer('numero');
+            $table->date('fecha_nacimiento');
             $table->string('imagen');
             //FK tabla equipo
-            $table->unsignedInteger('equipo_id');
+            $table->unsignedInteger('equipo_id');-
             $table->foreign('equipo_id')->references('id')->on('equipos');
 
             $table->timestamps();
