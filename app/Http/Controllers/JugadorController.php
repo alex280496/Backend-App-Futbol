@@ -44,17 +44,22 @@ class JugadorController extends Controller
         $jugador->posicion_juego=$request->input('posicion_juego');
         $jugador->numero=$request->input('numero');
         $jugador->fecha_nacimiento=$request->input('fecha_nacimiento');
-        if($request->hasfile('imagen')){
-          $file=$request->file('imagen');
-          $path=public_path().'/images/jugadores';
-          $fileName=uniqid().'-'.$file->getClientOriginalName();
-          $moved=$file->move($path,$fileName);
-          if($moved){
-            $jugador->imagen=$fileName;
-            $jugador->save();//insert en la bd
-            return json_encode($jugador);
-          }
+        $jugador->save();
+
+    }
+    public function guardarimagenjugador(Request $request,$id){
+      $jugador=Jugador::find($id);
+      if($request->hasfile('imagen')){
+        $file=$request->file('imagen');
+        $path=public_path().'/images/jugadores';
+        $fileName=uniqid().'-'.$file->getClientOriginalName();
+        $moved=$file->move($path,$fileName);
+        if($moved){
+          $jugador->imagen=$fileName;
+          $jugador->save();//insert en la bd
+          return json_encode($jugador);
         }
+      }
 
     }
 
