@@ -44,7 +44,10 @@ class JugadorController extends Controller
         $jugador->posicion_juego=$request->input('posicion_juego');
         $jugador->numero=$request->input('numero');
         $jugador->fecha_nacimiento=$request->input('fecha_nacimiento');
+        $jugador->equipo_id=$request->input('equipo_id');
         $jugador->save();
+
+        return json_encode($jugador);
 
     }
     public function guardarimagenjugador(Request $request,$id){
