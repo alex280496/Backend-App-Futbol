@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jugador;
 use Illuminate\Http\Request;
-
+use DB;
 class JugadorController extends Controller
 {
     /**
@@ -18,15 +18,6 @@ class JugadorController extends Controller
         return json_encode($jugadores);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,7 +29,7 @@ class JugadorController extends Controller
     {
         $jugador=new Jugador();
         $jugador->cedula=$request->input('cedula');
-        $jugador->nombre=$request->input('nombre');
+        $jugador->nombrejugador=$request->input('nombrejugador');
         $jugador->apellido=$request->input('apellido');
         $jugador->telefono=$request->input('telefono');
         $jugador->posicion_juego=$request->input('posicion_juego');
@@ -74,8 +65,17 @@ class JugadorController extends Controller
      */
     public function show($id)
     {
-        $jugador=Jugador::find($id);
-         return json_encode($jugador);
+        //$jugador=Jugador::find($id);
+         //return json_encode ($jugador);
+
+
+        $jugador=DB::table('jugadors as jugador' )
+        ->join('equipos as equipo', 'jugador.equipo_id','=','equipo.id')
+        ->select('jugador.cedula','jugador.nombrejugador','jugador.apellido','jugador.telefono','jugador.posicion_juego','jugador.numero',
+        'jugador.fecha_nacimiento','jugador.imagen','equipo.nombre')
+        ->where('jugador.id','=',$id)
+        ->get();
+        return json_encode($jugador);
     }
 
     /**

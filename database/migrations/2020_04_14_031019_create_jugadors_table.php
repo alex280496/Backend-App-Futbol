@@ -16,7 +16,7 @@ class CreateJugadorsTable extends Migration
         Schema::create('jugadors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('cedula');
-            $table->string('nombre');
+            $table->string('nombrejugador');
             $table->string('apellido');
             $table->string('telefono');
             $table->string('posicion_juego');
