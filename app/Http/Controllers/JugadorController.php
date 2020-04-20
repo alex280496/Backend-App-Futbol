@@ -71,7 +71,7 @@ class JugadorController extends Controller
 
         $jugador=DB::table('jugadors as jugador' )
         ->join('equipos as equipo', 'jugador.equipo_id','=','equipo.id')
-        ->select('jugador.cedula','jugador.nombrejugador','jugador.apellido','jugador.telefono','jugador.posicion_juego','jugador.numero',
+        ->select('jugador.id','jugador.cedula','jugador.nombrejugador','jugador.apellido','jugador.telefono','jugador.posicion_juego','jugador.numero',
         'jugador.fecha_nacimiento','jugador.imagen','equipo.nombre')
         ->where('jugador.id','=',$id)
         ->get();
