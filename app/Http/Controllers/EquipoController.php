@@ -14,7 +14,7 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        $equipos=Equipo::orderBy('id')->get();
+        $equipos=Equipo::orderBy('id_equipo')->get();
         echo  json_encode ($equipos);
     }
 
@@ -51,9 +51,9 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_equipo)
     {
-      $equipo=Equipo::find($id);
+      $equipo=Equipo::find($id_equipo);
       echo json_encode($equipo);
     }
     /**
@@ -63,16 +63,16 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request,$id_equipo)
     {
-        $equipo=Equipo::find($id);
+        $equipo=Equipo::find($id_equipo);
         $equipo->nombre=$request->input('nombre');
         $equipo->categoria=$request->input('categoria');
         $equipo->save();
     }
-    public function guardarimagenupdate(Request $request,$id){
+    public function guardarimagenupdate(Request $request,$id_equipo){
 
-      $equipo=Equipo::find($id);
+      $equipo=Equipo::find($id_equipo);
       //dd($ultimo);
       $file=$request->file('imagen');
       $path=public_path().'/images/equipos';
@@ -90,9 +90,9 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_equipo)
     {
-      $equipo=Equipo::find($id);
+      $equipo=Equipo::find($id_equipo);
       $equipo->delete();
       echo json_encode($equipo);
     }

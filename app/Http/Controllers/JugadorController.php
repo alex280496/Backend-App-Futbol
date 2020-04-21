@@ -70,12 +70,12 @@ class JugadorController extends Controller
 
 
         $jugador=DB::table('jugadors as jugador' )
-        ->join('equipos as equipo', 'jugador.equipo_id','=','equipo.id')
+        ->join('equipos as equipo', 'jugador.equipo_id','=','equipo.id_equipo')
         ->select('jugador.id','jugador.cedula','jugador.nombrejugador','jugador.apellido','jugador.telefono','jugador.posicion_juego','jugador.numero',
-        'jugador.fecha_nacimiento','jugador.imagen','equipo.nombre')
+        'jugador.fecha_nacimiento','jugador.imagen','equipo.nombre','equipo.id_equipo')
         ->where('jugador.id','=',$id)
         ->get();
-        return json_encode($jugador);
+        return ($jugador);
     }
 
     /**
@@ -89,23 +89,15 @@ class JugadorController extends Controller
     {
         $jugador=Jugador::find($id);
         $jugador->cedula=$request->input('cedula');
-        $jugador->nombre=$request->input('nombre');
+        $jugador->nombrejugador=$request->input('nombrejugador');
         $jugador->apellido=$request->input('apellido');
-        $jugador->telefono=$request->input('apellido');
+        $jugador->telefono=$request->input('telefono');
         $jugador->posicion_juego=$request->input('posicion_juego');
         $jugador->numero=$request->input('numero');
         $jugador->fecha_nacimiento=$request->input('fecha_nacimiento');
-        if($request->hasfile('imagen')){
-          $file=$request->file('imagen');
-          $path=public_path().'/images/jugadores';
-          $fileName=uniqid().'-'.$file->getClientOriginalName();
-          $moved=$file->move($path,$fileName);
-          if($moved){
-            $jugador->imagen=$fileName;
-            $jugador->save();//insert en la bd
-            return  json_encode($jugador);
-          }
-        }
+        $jugador->equipo_id=$request->input('equipo_id');
+        $jugador->save();
+        return $jugador;
 
     }
 
