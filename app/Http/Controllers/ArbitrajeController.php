@@ -14,7 +14,8 @@ class ArbitrajeController extends Controller
      */
     public function index()
     {
-        //
+        $arbitrajes=Arbitraje::all():
+        return $arbitrajes;
     }
 
     /**
@@ -22,20 +23,16 @@ class ArbitrajeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $arbitraje=new Arbitraje();
+        $arbitraje->fecha=$request->input('fecha');
+        $arbitraje->valor_cancelado=$request->input('valor_cancelado');
+        $arbitraje->valor_restante=$request->input('valor_restante');
+        $arbitraje->jugador_id=$request->input('jugador_id');
+        $arbitraje->save();
+        return $arbitraje;
     }
 
     /**
@@ -55,21 +52,15 @@ class ArbitrajeController extends Controller
      * @param  \App\Arbitraje  $arbitraje
      * @return \Illuminate\Http\Response
      */
-    public function edit(Arbitraje $arbitraje)
+    public function update(Request $request,$id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Arbitraje  $arbitraje
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Arbitraje $arbitraje)
-    {
-        //
+        $arbitraje=Arbitraje::find($id);
+        $arbitraje->fecha=$request->input('fecha');
+        $arbitraje->valor_cancelado=$request->input('valor_cancelado');
+        $arbitraje->valor_restante=$request->input('valor_restante');
+        $arbitraje->jugador_id=$request->input('jugador_id');
+        $arbitraje->save();
+        return $arbitraje;
     }
 
     /**
@@ -78,8 +69,10 @@ class ArbitrajeController extends Controller
      * @param  \App\Arbitraje  $arbitraje
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Arbitraje $arbitraje)
+    public function destroy($id)
     {
-        //
+        $arbitraje=Arbitraje::find($id);
+        $arbitraje->destroy();
+        return $arbitraje;
     }
 }
