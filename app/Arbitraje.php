@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Jugador;
 class Arbitraje extends Model
 {
   protected $table ='arbitrajes';
@@ -11,4 +11,7 @@ class Arbitraje extends Model
   protected $fillable = [
       'fecha','valor_cancelado','valor_restante','jugador_id'
   ];
+  public function jugador(){
+    return $this->belongsTo(Jugador::class);
+  }
 }
