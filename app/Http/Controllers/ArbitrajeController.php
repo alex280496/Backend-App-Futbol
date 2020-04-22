@@ -14,7 +14,7 @@ class ArbitrajeController extends Controller
      */
     public function index()
     {
-        $arbitrajes=Arbitraje::all():
+        $arbitrajes=Arbitraje::all();
         return $arbitrajes;
     }
 
