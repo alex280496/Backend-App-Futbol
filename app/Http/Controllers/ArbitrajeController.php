@@ -20,7 +20,7 @@ class ArbitrajeController extends Controller
 
         $arbitrajes=DB::table('arbitrajes as arbitraje')
         ->join('jugadors as jugador','arbitraje.jugador_id','=','jugador.id')
-        ->select('arbitraje.id','arbitraje.fecha','arbitraje.valor_cancelado','arbitraje.valor_restante','jugador.nombrejugador','jugador.apellido','jugador.cedula')
+        ->select('arbitraje.id_arbitraje','arbitraje.fecha','arbitraje.valor_cancelado','arbitraje.valor_restante','jugador.nombrejugador','jugador.apellido','jugador.cedula')
         ->get();
         return ($arbitrajes);
     }
@@ -52,8 +52,8 @@ class ArbitrajeController extends Controller
     {
       $arbitraje=DB::table('arbitrajes as arbitraje')
       ->join('jugadors as jugador','arbitraje.jugador_id','=','jugador.id')
-      ->select('arbitraje.id','arbitraje.fecha','arbitraje.valor_cancelado','arbitraje.valor_restante','jugador.nombrejugador','jugador.apellido','jugador.id')
-      ->where ('arbitraje.id','=',$id)
+      ->select('arbitraje.id_arbitraje','arbitraje.fecha','arbitraje.valor_cancelado','arbitraje.valor_restante','jugador.nombrejugador','jugador.apellido','jugador.id')
+      ->where ('arbitraje.id_arbitraje','=',$id)
       ->get();
       return ($arbitraje);
     }

@@ -14,13 +14,13 @@ class CreateArbitrajesTable extends Migration
     public function up()
     {
         Schema::create('arbitrajes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_arbitraje');
             $table->date('fecha');
             $table->float('valor_cancelado');
             $table->float('valor_restante');
             //FK tabla jugador
             $table->unsignedInteger('jugador_id');
-            $table->foreign('jugador_id')->references('id')->on('jugadors'); 
+            $table->foreign('jugador_id')->references('id')->on('jugadors');
             $table->timestamps();
         });
     }
