@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TarjetaAmarilla;
 use Illuminate\Http\Request;
-
+use DB;
 class TarjetaAmarillaController extends Controller
 {
     /**

@@ -23,3 +23,4 @@ Route::post('guardarimagenupdate/{id}','EquipoController@guardarimagenupdate');
 Route::resource('jugadores','JugadorController');
 Route::post('guardarimagenjugador/{id}','JugadorController@guardarimagenjugador');
 Route::resource('arbitrajes','ArbitrajeController');
+Route::resource('tamarillas','TarjetaAmarillaController');
