@@ -14,17 +14,12 @@ class TarjetaAmarillaController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $tarjetas_amarillas=DB::table('tarjeta_amarillas as tamarilla')
+        ->join('jugadors as jugador','tamarilla.jugador_id','=','jugador.id')
+        ->select('tamarilla.id_ta','tamarilla.fecha','tamarilla.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
+        ->get();
+        return ($tarjetas_amarillas);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
