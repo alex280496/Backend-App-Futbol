@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Arbitraje;
 use Illuminate\Http\Request;
-
+use DB;
 class ArbitrajeController extends Controller
 {
     /**
@@ -14,8 +14,15 @@ class ArbitrajeController extends Controller
      */
     public function index()
     {
-        $arbitrajes=Arbitraje::all();
-        return $arbitrajes;
+
+        //$arbitrajes=Arbitraje::all();
+        //return $arbitrajes;
+
+        $arbitrajes=DB::table('arbitrajes as arbitraje')
+        ->join('jugadors as jugador','arbitraje.jugador_id','=','jugador.id')
+        ->select('arbitraje.id','arbitraje.fecha','arbitraje.valor_cancelado','arbitraje.valor_restante','jugador.nombrejugador','jugador.apellido','jugador.cedula')
+        ->get();
+        return ($arbitrajes);
     }
 
     /**
@@ -41,9 +48,14 @@ class ArbitrajeController extends Controller
      * @param  \App\Arbitraje  $arbitraje
      * @return \Illuminate\Http\Response
      */
-    public function show(Arbitraje $arbitraje)
+    public function show($id)
     {
-        //
+      $arbitraje=DB::table('arbitrajes as arbitraje')
+      ->join('jugadors as jugador','arbitraje.jugador_id','=','jugador.id')
+      ->select('arbitraje.id','arbitraje.fecha','arbitraje.valor_cancelado','arbitraje.valor_restante','jugador.nombrejugador','jugador.apellido','jugador.id')
+      ->where ('arbitraje.id','=',$id)
+      ->get();
+      return ($arbitraje);
     }
 
     /**
