@@ -44,11 +44,12 @@ class TarjetaAmarillaController extends Controller
      * @param  \App\TarjetaAmarilla  $tarjetaAmarilla
      * @return \Illuminate\Http\Response
      */
-    public function show(TarjetaAmarilla $tarjetaAmarilla)
+    public function show($id)
     {
         $tarjeta_amarilla=DB::table('tarjeta_amarillas as tamarilla')
         ->join('jugadors as jugador','tamarilla.jugador_id','=','jugador.id')
         ->select('tamarilla.id_ta','tamarilla.fecha','tamarilla.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
+        ->where('tamarilla.id_ta','=',$id)
         ->get();
         return ($tarjeta_amarilla);
     }
@@ -60,9 +61,14 @@ class TarjetaAmarillaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, TarjetaAmarilla $tarjetaAmarilla)
+    public function update(Request $request, $id)
     {
-        //
+        $tarjeta_amarilla=TarjetaAmarilla::find($id);
+        $tarjeta_amarilla->fecha=$request->input('fecha');
+        $tarjeta_amarilla->observaciones=$request->input('observaciones');
+        $tarjeta_amarilla->jugador_id=$request->input('jugador_id');
+        $tarjeta_amarilla->save();
+        return ($tarjeta_amarilla);
     }
 
     /**
@@ -71,8 +77,10 @@ class TarjetaAmarillaController extends Controller
      * @param  \App\TarjetaAmarilla  $tarjetaAmarilla
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TarjetaAmarilla $tarjetaAmarilla)
+    public function destroy($id)
     {
-        //
+        $tamarilla=TarjetaAmarilla::find($id);
+        $tamarilla->delete();
+        return ($tamarilla);
     }
 }
