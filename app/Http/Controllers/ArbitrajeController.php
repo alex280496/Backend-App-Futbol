@@ -73,6 +73,7 @@ class ArbitrajeController extends Controller
         $arbitraje->jugador_id=$request->input('jugador_id');
         $arbitraje->save();
         return $arbitraje;
+        //par actualizar los arbitrajes 
     }
 
     /**
