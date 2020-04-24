@@ -30,7 +30,12 @@ class TarjetaAmarillaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tarjeta_amarilla=new TarjetaAmarilla();
+        $tarjeta_amarilla->fecha=$request->input('fecha');
+        $tarjeta_amarilla->observaciones=$request->input('observaciones');
+        $tarjeta_amarilla->jugador_id=$request->input('jugador_id');
+        $tarjeta_amarilla->save();
+        return ($tarjeta_amarilla);
     }
 
     /**
