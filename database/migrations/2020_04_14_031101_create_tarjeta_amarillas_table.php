@@ -14,7 +14,7 @@ class CreateTarjetaAmarillasTable extends Migration
     public function up()
     {
         Schema::create('tarjeta_amarillas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_ta');
             $table->date('fecha');
             $table->string('observaciones');
             //FK tabla jugador

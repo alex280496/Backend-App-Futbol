@@ -73,7 +73,7 @@ class ArbitrajeController extends Controller
         $arbitraje->jugador_id=$request->input('jugador_id');
         $arbitraje->save();
         return $arbitraje;
-        //par actualizar los arbitrajes 
+        //par actualizar los arbitrajes
     }
 
     /**
@@ -85,7 +85,7 @@ class ArbitrajeController extends Controller
     public function destroy($id)
     {
         $arbitraje=Arbitraje::find($id);
-        $arbitraje->destroy();
+        $arbitraje->delete();
         return $arbitraje;
     }
 }

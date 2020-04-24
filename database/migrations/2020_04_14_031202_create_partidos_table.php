@@ -20,7 +20,7 @@ class CreatePartidosTable extends Migration
             $table->integer('puntos');
             //FK tabla equipo
             $table->unsignedInteger('equipo_id');
-            $table->foreign('equipo_id')->references('id')->on('equipos');
+            $table->foreign('equipo_id')->references('id_equipo')->on('equipos');
             $table->timestamps();
         });
     }

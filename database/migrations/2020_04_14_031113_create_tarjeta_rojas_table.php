@@ -14,7 +14,7 @@ class CreateTarjetaRojasTable extends Migration
     public function up()
     {
         Schema::create('tarjeta_rojas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_tr');
             $table->date('fecha');
             $table->string('observaciones');
             //FK tabla jugador
