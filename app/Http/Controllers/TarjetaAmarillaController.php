@@ -46,7 +46,11 @@ class TarjetaAmarillaController extends Controller
      */
     public function show(TarjetaAmarilla $tarjetaAmarilla)
     {
-        //
+        $tarjeta_amarilla=DB::table('tarjeta_amarillas as tamarilla')
+        ->join('jugadors as jugador','tamarilla.jugador_id','=','jugador.id')
+        ->select('tamarilla.id_ta','tamarilla.fecha','tamarilla.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
+        ->get();
+        return ($tarjeta_amarilla);
     }
 
     /**
@@ -55,18 +59,7 @@ class TarjetaAmarillaController extends Controller
      * @param  \App\TarjetaAmarilla  $tarjetaAmarilla
      * @return \Illuminate\Http\Response
      */
-    public function edit(TarjetaAmarilla $tarjetaAmarilla)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TarjetaAmarilla  $tarjetaAmarilla
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, TarjetaAmarilla $tarjetaAmarilla)
     {
         //
