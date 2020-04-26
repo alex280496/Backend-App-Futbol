@@ -14,19 +14,12 @@ class TarjetaRojaController extends Controller
      */
     public function index()
     {
-        //
+        $trojas=DB::table('tarjeta_rojas as troja')
+        ->join('jugadors a jugador','troja.jugador_id','=','jugador.id')
+        ->select('troja.id_tr','troja.fecha','troja.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
+        ->get();
+        return ($trojas);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +28,12 @@ class TarjetaRojaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $troja=new TarjetaRoja():
+        $troja->fecha=$request->input('fecha');
+        $troja->observaciones=$request->input('observaciones');
+        $troja->jugador_id=$request->input('jugador_id');
+
+        return ($troja);
     }
 
     /**
