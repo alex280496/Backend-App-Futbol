@@ -42,9 +42,14 @@ class TarjetaRojaController extends Controller
      * @param  \App\TarjetaRoja  $tarjetaRoja
      * @return \Illuminate\Http\Response
      */
-    public function show(TarjetaRoja $tarjetaRoja)
+    public function show($id)
     {
-        //
+        $troja=DB::table('tarjeta_rojas as troja' )
+        ->join('jugadors as jugador','troja.jugador_id','jugador.id')
+        ->select('troja.id_tr','troja.fecha','troja.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
+        ->where('troja.id_tr','=',$id)
+        ->get():
+        return ($troja);
     }
 
     /**
