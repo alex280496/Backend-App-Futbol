@@ -58,21 +58,16 @@ class TarjetaRojaController extends Controller
      * @param  \App\TarjetaRoja  $tarjetaRoja
      * @return \Illuminate\Http\Response
      */
-    public function edit(TarjetaRoja $tarjetaRoja)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TarjetaRoja  $tarjetaRoja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TarjetaRoja $tarjetaRoja)
+    public function update(Request $request, $id)
     {
-        //
+        $troja=TarjetaRoja::find($id);
+        $troja->fecha=$request->input('fecha');
+        $troja->observaciones=$request->input('observaciones');
+        $troja->jugador_id=$request->input('jugador_id');
+
+        $troja->save();
+        return ($troja);
     }
 
     /**
@@ -81,8 +76,10 @@ class TarjetaRojaController extends Controller
      * @param  \App\TarjetaRoja  $tarjetaRoja
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TarjetaRoja $tarjetaRoja)
+    public function destroy($id)
     {
-        //
+        $troja=TarjetaRoja::find($id);
+        $troja->delete();
+        return ($troja);
     }
 }
