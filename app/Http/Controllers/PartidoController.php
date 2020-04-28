@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Partido;
 use Illuminate\Http\Request;
-
+use DB;
 class PartidoController extends Controller
 {
     /**
@@ -14,7 +14,11 @@ class PartidoController extends Controller
      */
     public function index()
     {
-        //
+        $partido=DB::table('partidos as partido')
+        ->join('equipos as equipo' 'partido.equipo_id','=','equipo.id_equipo')
+        ->select('partido.id','partido.fecha','partido.rival','partido.puntos','equipo.id_equipo','equipo.nombre')
+        ->get():
+        return ($partido);
     }
 
     /**

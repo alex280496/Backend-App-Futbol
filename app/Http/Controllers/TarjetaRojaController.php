@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TarjetaRoja;
 use Illuminate\Http\Request;
+use DB;
 
 class TarjetaRojaController extends Controller
 {
@@ -15,7 +16,7 @@ class TarjetaRojaController extends Controller
     public function index()
     {
         $trojas=DB::table('tarjeta_rojas as troja')
-        ->join('jugadors a jugador','troja.jugador_id','=','jugador.id')
+        ->join('jugadors as jugador','troja.jugador_id','=','jugador.id')
         ->select('troja.id_tr','troja.fecha','troja.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
         ->get();
         return ($trojas);
@@ -28,11 +29,12 @@ class TarjetaRojaController extends Controller
      */
     public function store(Request $request)
     {
-        $troja=new TarjetaRoja():
+        $troja=new TarjetaRoja();
         $troja->fecha=$request->input('fecha');
         $troja->observaciones=$request->input('observaciones');
         $troja->jugador_id=$request->input('jugador_id');
 
+        $troja->save();
         return ($troja);
     }
 
@@ -48,7 +50,7 @@ class TarjetaRojaController extends Controller
         ->join('jugadors as jugador','troja.jugador_id','jugador.id')
         ->select('troja.id_tr','troja.fecha','troja.observaciones','jugador.nombrejugador','jugador.cedula','jugador.id')
         ->where('troja.id_tr','=',$id)
-        ->get():
+        ->get();
         return ($troja);
     }
 
