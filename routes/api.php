@@ -25,3 +25,4 @@ Route::post('guardarimagenjugador/{id}','JugadorController@guardarimagenjugador'
 Route::resource('arbitrajes','ArbitrajeController');
 Route::resource('tamarillas','TarjetaAmarillaController');
 Route::resource('trojas','TarjetaRojaController');
+Route::resource('partidos','PartidoController');

@@ -15,9 +15,9 @@ class PartidoController extends Controller
     public function index()
     {
         $partido=DB::table('partidos as partido')
-        ->join('equipos as equipo' 'partido.equipo_id','=','equipo.id_equipo')
+        ->join('equipos as equipo', 'partido.equipo_id','=','equipo.id_equipo')
         ->select('partido.id','partido.fecha','partido.puntos','equipo.id_equipo','equipo.nombre')
-        ->get():
+        ->get();
         return ($partido);
     }
 
@@ -31,7 +31,6 @@ class PartidoController extends Controller
     {
         $partido =new Partido();
         $partido->fecha=$request->input('fecha');
-        //$partido->rival=$request->input('rival');
         $partido->puntos=$request->input('puntos');
         $partido->equipo_id=$request->input('equipo_id');
         $partido->save();
@@ -48,7 +47,7 @@ class PartidoController extends Controller
     public function show($id)
     {
       $partido=DB::table('partidos as partido')
-      ->join('equipos as equipo' ,'partido.equipo_id','=','equipo.id')
+      ->join('equipos as equipo' ,'partido.equipo_id','=','equipo.id_equipo')
       ->select('partido.id','partido.fecha','partido.puntos', 'equipo.id_equipo','equipo.nombre')
       ->where('partido.id','=',$id)
       ->get();
@@ -69,7 +68,7 @@ class PartidoController extends Controller
         //$partido->rival=$request->input('rival');
         $partido->puntos=$request->input('puntos');
         $partido->equipo_id=$request->input('equipo_id');
-        $partido->save():
+        $partido->save();
 
         return ($partido);
     }
@@ -83,7 +82,7 @@ class PartidoController extends Controller
     public function destroy($id)
     {
         $partido=Partido::find($id);
-        $partido->delete():
+        $partido->delete();
         return ($partido);
     }
 }
