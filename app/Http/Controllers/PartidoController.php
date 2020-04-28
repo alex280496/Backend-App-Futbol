@@ -26,20 +26,17 @@ class PartidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $partido =new Partido();
+        $partido->fecha=$request->input('fecha');
+        $partido->rival=$request->input('rival');
+        $partido->puntos=$request->input('puntos');
+        $partido->equipo_id=$request->input('equipo_id');
+        $partido->save();
+
+        return ($partido);
     }
 
     /**
@@ -48,20 +45,14 @@ class PartidoController extends Controller
      * @param  \App\Partido  $partido
      * @return \Illuminate\Http\Response
      */
-    public function show(Partido $partido)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Partido  $partido
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Partido $partido)
-    {
-        //
+      $partido=DB::table('partidos as partido')
+      ->join('equipos as equipo' ,'partido.equipo_id','=','equipo.id')
+      ->select('partido.id','partido.fecha','partido.rival','partido.puntos', 'equipo.id_equipo','equipo.nombre')
+      ->where('partido.id','=',$id)
+      ->get();
+      return ($partido);
     }
 
     /**
@@ -71,9 +62,16 @@ class PartidoController extends Controller
      * @param  \App\Partido  $partido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Partido $partido)
+    public function update(Request $request,$id)
     {
-        //
+        $partido=Partido::find($id);
+        $partido->fecha=$request->input('fecha');
+        $partido->rival=$request->input('rival');
+        $partido->puntos=$request->input('puntos');
+        $partido->equipo_id=$request->input('equipo_id');
+        $partido->save():
+
+        return ($partido);
     }
 
     /**
@@ -82,8 +80,10 @@ class PartidoController extends Controller
      * @param  \App\Partido  $partido
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Partido $partido)
+    public function destroy($id)
     {
-        //
+        $partido=Partido::find($id);
+        $partido->delete():
+        return ($partido);
     }
 }
