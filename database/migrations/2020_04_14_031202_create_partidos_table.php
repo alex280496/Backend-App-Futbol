@@ -16,7 +16,7 @@ class CreatePartidosTable extends Migration
         Schema::create('partidos', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
-            $table->string('rival');
+            //$table->string('rival');
             $table->integer('puntos');
             //FK tabla equipo
             $table->unsignedInteger('equipo_id');

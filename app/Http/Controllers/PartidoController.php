@@ -16,7 +16,7 @@ class PartidoController extends Controller
     {
         $partido=DB::table('partidos as partido')
         ->join('equipos as equipo' 'partido.equipo_id','=','equipo.id_equipo')
-        ->select('partido.id','partido.fecha','partido.rival','partido.puntos','equipo.id_equipo','equipo.nombre')
+        ->select('partido.id','partido.fecha','partido.puntos','equipo.id_equipo','equipo.nombre')
         ->get():
         return ($partido);
     }
@@ -31,7 +31,7 @@ class PartidoController extends Controller
     {
         $partido =new Partido();
         $partido->fecha=$request->input('fecha');
-        $partido->rival=$request->input('rival');
+        //$partido->rival=$request->input('rival');
         $partido->puntos=$request->input('puntos');
         $partido->equipo_id=$request->input('equipo_id');
         $partido->save();
@@ -49,7 +49,7 @@ class PartidoController extends Controller
     {
       $partido=DB::table('partidos as partido')
       ->join('equipos as equipo' ,'partido.equipo_id','=','equipo.id')
-      ->select('partido.id','partido.fecha','partido.rival','partido.puntos', 'equipo.id_equipo','equipo.nombre')
+      ->select('partido.id','partido.fecha','partido.puntos', 'equipo.id_equipo','equipo.nombre')
       ->where('partido.id','=',$id)
       ->get();
       return ($partido);
@@ -66,7 +66,7 @@ class PartidoController extends Controller
     {
         $partido=Partido::find($id);
         $partido->fecha=$request->input('fecha');
-        $partido->rival=$request->input('rival');
+        //$partido->rival=$request->input('rival');
         $partido->puntos=$request->input('puntos');
         $partido->equipo_id=$request->input('equipo_id');
         $partido->save():
